@@ -1,0 +1,43 @@
+test.c:5:10: error: array subscript is not an integer
+    b = a[1.5];
+         ^~~~
+1 error generated.
+TranslationUnitDecl 0xfb1a68 <<invalid sloc>> <invalid sloc>
+|-TypedefDecl 0xfb2300 <<invalid sloc>> <invalid sloc> implicit __int128_t '__int128'
+| `-BuiltinType 0xfb2000 '__int128'
+|-TypedefDecl 0xfb2370 <<invalid sloc>> <invalid sloc> implicit __uint128_t 'unsigned __int128'
+| `-BuiltinType 0xfb2020 'unsigned __int128'
+|-TypedefDecl 0xfb2678 <<invalid sloc>> <invalid sloc> implicit __NSConstantString 'struct __NSConstantString_tag'
+| `-RecordType 0xfb2450 'struct __NSConstantString_tag'
+|   `-Record 0xfb23c8 '__NSConstantString_tag'
+|-TypedefDecl 0xfb2710 <<invalid sloc>> <invalid sloc> implicit __builtin_ms_va_list 'char *'
+| `-PointerType 0xfb26d0 'char *'
+|   `-BuiltinType 0xfb1b00 'char'
+|-TypedefDecl 0xfb2a08 <<invalid sloc>> <invalid sloc> implicit __builtin_va_list 'struct __va_list_tag [1]'
+| `-ConstantArrayType 0xfb29b0 'struct __va_list_tag [1]' 1 
+|   `-RecordType 0xfb27f0 'struct __va_list_tag'
+|     `-Record 0xfb2768 '__va_list_tag'
+`-FunctionDecl 0x1011510 <test.c:1:1, line:10:1> line:1:5 main 'int ()'
+  `-CompoundStmt 0x1011ba8 <line:2:1, line:10:1>
+    |-DeclStmt 0x10117e8 <line:3:5, col:22>
+    | `-VarDecl 0x1011690 <col:5, col:21> col:9 used a 'int [2]' cinit
+    |   `-InitListExpr 0x1011798 <col:16, col:21> 'int [2]'
+    |     |-IntegerLiteral 0x10116f8 <col:17> 'int' 0
+    |     `-IntegerLiteral 0x1011718 <col:20> 'int' 1
+    |-DeclStmt 0x1011880 <line:4:5, col:10>
+    | `-VarDecl 0x1011818 <col:5, col:9> col:9 used b 'int'
+    |-DeclStmt 0x10119f8 <line:6:5, col:18>
+    | `-VarDecl 0x1011958 <col:5, col:15> col:11 used c 'float' cinit
+    |   `-ImplicitCastExpr 0x10119e0 <col:15> 'float' <FloatingCast>
+    |     `-FloatingLiteral 0x10119c0 <col:15> 'double' 1.000000e+00
+    |-DeclStmt 0x1011a90 <line:7:5, col:12>
+    | `-VarDecl 0x1011a28 <col:5, col:11> col:11 used d 'float'
+    |-BinaryOperator 0x1011b58 <line:8:5, col:13> 'float' '='
+    | |-DeclRefExpr 0x1011aa8 <col:5> 'float' lvalue Var 0x1011a28 'd' 'float'
+    | `-BinaryOperator 0x1011b38 <col:9, col:13> 'float' '*'
+    |   |-ImplicitCastExpr 0x1011b08 <col:9> 'float' <LValueToRValue>
+    |   | `-DeclRefExpr 0x1011ac8 <col:9> 'float' lvalue Var 0x1011958 'c' 'float'
+    |   `-ImplicitCastExpr 0x1011b20 <col:13> 'float' <IntegralToFloating>
+    |     `-IntegerLiteral 0x1011ae8 <col:13> 'int' 2
+    `-ReturnStmt 0x1011b98 <line:9:5, col:12>
+      `-IntegerLiteral 0x1011b78 <col:12> 'int' 0

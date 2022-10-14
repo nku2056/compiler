@@ -1,0 +1,106 @@
+\usepackage{align}
+\mathchardef\myhyphen"2D
+\begin{document}
+编译单元
+\begin{align*}
+    ConstUnit &\longrightarrow [ConstUnit](Decl\ |\ FuncDef)
+\end{align*}
+
+声明
+\begin{align*}
+    Decl &\longrightarrow ConstDecl\ |\ VarDecl
+\end{align*}
+
+基本类型
+\begin{align*}
+    BType &\longrightarrow \mathbf{'int'}\ |\ \mathbf{'float'}
+\end{align*}
+
+整型常数
+\begin{align*}
+    integer\myhyphen const &\longrightarrow decimal\myhyphen const\ |\ octal\myhyphen const\ |\ hexadecimal\myhyphen const \\
+    decimal\myhyphen const &\longrightarrow nonzero\myhyphen digit\ |\ decimal\myhyphen const\ digit \\
+    octal\myhyphen const &\longrightarrow 0\ |\ octal\myhyphen const\ octal\myhyphen digit \\
+    hexdecimal\myhyphen const &\longrightarrow hexdecimal\myhyphen prefix\ hexdecimal\myhyphen digit\\ 
+    &\ \ \ \ \ \ |\ hexdecimal\myhyphen const\ hexdecimal\myhyphen digit 
+\end{align*}
+
+常量声明
+\begin{align*}
+    ConstDecl &\longrightarrow \mathbf{'const'}\ BType\ ConstDef\{';'ConstDef\}';'
+\end{align*}
+
+变量声明
+\begin{align*}
+    VarDecl &\longrightarrow BType\ VarDef\{';'VarDef\}';'
+\end{align*}
+
+常量定义
+\begin{align*}
+    ConstDef &\longrightarrow \mathbf{Ident}\ \{'['ConstExp']'\}\ '=' ConstInitVal
+\end{align*}
+
+变量定义
+\begin{align*}
+    VarDef &\longrightarrow \mathbf{Ident}\ \{'['ConstExp']'\}\\
+    &\ \ \ \ \ \ |\ \mathbf{Ident}\ \{'['ConstExp']'\}\ '=' ConstInitVal
+\end{align*}
+
+常量初值
+\begin{align*}
+    ConstInitVal &\longrightarrow ConstExp\\
+    &\ \ \ \ \ \ |\ '\{'[ConstInitVal\{','ConstInitVal\}]'\}'
+\end{align*}
+
+变量初值
+\begin{align*}
+    InitVal &\longrightarrow Exp \ |\ '\{'[InitVal \{','InitVal\}]'\}'
+\end{align*}
+
+函数参数
+\begin{align*}
+    FuncFParam &\longrightarrow BType\ \mathbf{Ident}\ ['['']'\{'['Exp']'\}] \\
+    FuncFParams &\longrightarrow FuncFParam \{','FuncFParam\}\\
+    FuncRParams &\longrightarrow Exp\ \{','Exp\}
+\end{align*}
+
+函数定义
+\begin{align*}
+    FuncDef &\longrightarrow FuncType\ \mathbf{Ident}\ '('[FuncFParams]')' Block
+\end{align*}
+
+语句块
+\begin{align*}
+    Block &\longrightarrow '\{'\{BlockItem\}'\}' \\
+    BlockItem &\longrightarrow Decl\ |\ Stmt
+\end{align*}
+
+语句和表达式
+\begin{align*}
+    Stmt &\longrightarrow Val\ '='\ Exp';'\ |\ [Exp]';'\ |\ Block \\
+    &\ \ \ \ \ \ |\ \mathbf{'if'}\ '('Cond')'\ Stmt[\mathbf{'else'}\ Stmt] \\
+    &\ \ \ \ \ \ |\ \mathbf{'while'}\ '('Cond')'\ Stmt \\
+    &\ \ \ \ \ \ |\ \mathbf{'break'}\ ';'\ |\ \mathbf{'continue'}\ ';' \\
+    &\ \ \ \ \ \ |\ \mathbf{'return'}\ [Exp]\ ';'
+\end{align*}
+
+各种类型表达式
+\begin{align*}
+    Exp &\longrightarrow AddExp\\   
+    Cond &\longrightarrow LOrExp\\
+    LVal &\longrightarrow \mathbf{Ident}\ \{'['Exp']'\}\ \\
+    PrimaryExp &\longrightarrow '('Exp')' \ |\ LVal\ |\ Number\\
+    Number &\longrightarrow \mathbf{intConst}\ |\ \mathbf{floatConst}\\
+    UaryExp &\longrightarrow PrimaryExp \ |\ \mathbf{Ident}\ '('[FuncRParams]')'\\
+    &\ \ \ \ \ \ |\ UnaryOP\ UnaryExp\\
+    UnaryOP &\longrightarrow '+'\ |\ '-'\ |\ '!'\\
+    MulExp &\longrightarrow UnaryExp\ |\ MulExp('*'|'/'|'\%')\ UnaryExp\\
+    AddExp &\longrightarrow MulExp\ |\ AddExp('+'|'-')\ MulExp\\
+    RelExp &\longrightarrow AddExp\ |\ RelExp('<'|'>'|'<='|'>=')\ AddExp\\
+    EqExp &\longrightarrow RelExp\ |\ EqExp('=='|'!=')\ RelExp\\
+    LAndExp &\longrightarrow EqExp\ |\ LAndExp\ '\&\&'\ EqExp\\
+    LOrExp &\longrightarrow LAndExp | LOrExp\ '||'\ LAndExp\\
+    ConstExp &\longrightarrow AndExp(\mathbf{Idents}\ must\ be\ constants)
+\end{align*}
+
+\end{document}
