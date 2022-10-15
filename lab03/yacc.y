@@ -91,7 +91,7 @@ int yylex()
 
 int main()
 {
-	yyin = stdin ;
+	yyin = stdin;
 	do 
 	{
 		yyparse();

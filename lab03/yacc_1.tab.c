@@ -1351,7 +1351,7 @@ yyreduce:
 
   case 10:
 #line 42 "yacc_1.y"
-                                              { yyval = (char*)malloc(50*sizeof(char)); strcpy(yyval,"-"); strcat(yyval,yyvsp[0]); }
+                                              { yyval = (char*)malloc(50*sizeof(char)); strcpy(yyval,"-"); strcat(yyval,yyvsp[0]);strcat(yyval," "); }
 #line 1356 "yacc_1.tab.c"
     break;
 
