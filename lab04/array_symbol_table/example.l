@@ -3,6 +3,11 @@
 #include "symtable.h"
 #include <stdio.h>
 
+union Type {
+	int ival;
+	float fval;
+	struct symitem* symp;
+};
 extern FILE *yyin; 
 extern FILE *yyout;
 union Type value;

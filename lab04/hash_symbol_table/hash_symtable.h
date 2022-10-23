@@ -1,15 +1,14 @@
 #define MAX_SYMBOLS 20
 #include <stdlib.h>
 #include <stdio.h>
-union Type {
+union val {
 	float fval;
 	int ival;
-	struct symitem* symp;
 };
 
 struct symitem {
 	char *name;
-	union Type value;
+	union val value;
 };
 
 struct symtable {
@@ -18,5 +17,6 @@ struct symtable {
 	struct symtable *siblingtable;
 } symboltable;
 
+int hash(char*);
 struct symitem *symlook(char*, int, int);
 void printsymbols(FILE*);

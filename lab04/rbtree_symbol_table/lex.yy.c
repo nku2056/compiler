@@ -485,17 +485,22 @@ int yy_flex_debug = 0;
 char *yytext;
 #line 1 "example.l"
 #line 3 "example.l"
-#include "symtable.h"
+#include "rbtree_symtable.h"
 #include <stdio.h>
 
+union Type {
+	int ival;
+	float fval;
+	struct symitem* symp;
+};
 extern FILE *yyin; 
 extern FILE *yyout;
 union Type value;
 int current_level = 0;
 int current_index = 0;
 int old_index = 0;
-#line 498 "lex.yy.c"
-#line 499 "lex.yy.c"
+#line 503 "lex.yy.c"
+#line 504 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -712,10 +717,10 @@ YY_DECL
 		}
 
 	{
-#line 43 "example.l"
+#line 48 "example.l"
 
 
-#line 719 "lex.yy.c"
+#line 724 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -774,151 +779,151 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 45 "example.l"
+#line 50 "example.l"
 {value.ival = atoi(yytext);fprintf(yyout, "DECIMAL\t\t%s\t\t%d\n", yytext, value.ival);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 46 "example.l"
+#line 51 "example.l"
 {sscanf(yytext, "%o", &value.ival);fprintf(yyout, "OCTAL\t\t%s\t\t%d\n", yytext, value.ival);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 47 "example.l"
+#line 52 "example.l"
 {sscanf(yytext, "%x", &value.ival);fprintf(yyout, "HEXADECIMAL\t\t%s\t\t%d\n", yytext, value.ival);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 48 "example.l"
+#line 53 "example.l"
 {value.fval = atof(yytext);fprintf(yyout, "DOUBLE\t\t%s\t\t%f\n", yytext, value.fval);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 49 "example.l"
+#line 54 "example.l"
 {fprintf(yyout, "INT\t\t%s\n", yytext);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 50 "example.l"
+#line 55 "example.l"
 {fprintf(yyout, "FLOAT\t\t%s\n", yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 51 "example.l"
+#line 56 "example.l"
 {fprintf(yyout, "IF\t\t%s\n", yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 52 "example.l"
+#line 57 "example.l"
 {current_level++;old_index = current_index;current_index = 0;fprintf(yyout, "LBRACE\t\t%s\n", yytext);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 53 "example.l"
+#line 58 "example.l"
 {current_level--;current_index++;current_index = old_index;fprintf(yyout, "RBRACE\t\t%s\n", yytext);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 54 "example.l"
+#line 59 "example.l"
 {fprintf(yyout, "SEMICOLON\t\t%s\n", yytext);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 55 "example.l"
+#line 60 "example.l"
 {fprintf(yyout, "LBRACE\t\t%s\n", yytext);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 56 "example.l"
+#line 61 "example.l"
 {fprintf(yyout, "RBRACE\t\t%s\n", yytext);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 57 "example.l"
+#line 62 "example.l"
 {fprintf(yyout, "EQ\t\t%s\n", yytext);}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 58 "example.l"
+#line 63 "example.l"
 {fprintf(yyout, "ASSIGN\t\t%s\n", yytext);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 59 "example.l"
+#line 64 "example.l"
 {fprintf(yyout, "PLUS\t\t%s\n", yytext);}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 60 "example.l"
+#line 65 "example.l"
 {fprintf(yyout, "SUB\t\t%s\n", yytext);}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 61 "example.l"
+#line 66 "example.l"
 {fprintf(yyout, "MULTI\t\t%s\n", yytext);}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 62 "example.l"
+#line 67 "example.l"
 {fprintf(yyout, "DIVIDE\t\t%s\n", yytext);}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 63 "example.l"
+#line 68 "example.l"
 {fprintf(yyout, "LAND\t\t%s\n", yytext);}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 64 "example.l"
+#line 69 "example.l"
 {fprintf(yyout, "LOR\t\t%s\n", yytext);}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 65 "example.l"
+#line 70 "example.l"
 {fprintf(yyout, "LNOT\t\t%s\n", yytext);}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 66 "example.l"
+#line 71 "example.l"
 {fprintf(yyout, "AND\t\t%s\n", yytext);}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 67 "example.l"
+#line 72 "example.l"
 {fprintf(yyout, "OR\t\t%s\n", yytext);}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 68 "example.l"
+#line 73 "example.l"
 {fprintf(yyout, "NOT\t\t%s\n", yytext);}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 69 "example.l"
+#line 74 "example.l"
 {fprintf(yyout, "XOR\t\t%s\n", yytext);}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 70 "example.l"
+#line 75 "example.l"
 {value.symp = symlook(yytext, current_level, current_index);fprintf(yyout, "ID\t\t%s\t\t%X\n", yytext, value.symp);}
 	YY_BREAK
 case 27:
 /* rule 27 can match eol */
 YY_RULE_SETUP
-#line 71 "example.l"
+#line 76 "example.l"
 ;
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 72 "example.l"
+#line 77 "example.l"
 ;
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 74 "example.l"
+#line 79 "example.l"
 ECHO;
 	YY_BREAK
-#line 922 "lex.yy.c"
+#line 927 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1923,7 +1928,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 74 "example.l"
+#line 79 "example.l"
 
 
 int main(int argc, char* argv[])

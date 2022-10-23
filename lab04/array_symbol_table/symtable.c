@@ -23,6 +23,7 @@ struct symitem* symlook(char *s, int level, int index) {
 			return sp;
 		}
 	}
+	fprintf (stderr, "Array full : %s\n", s );
 	return NULL;
 }
 

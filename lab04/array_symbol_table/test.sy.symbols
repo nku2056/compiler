@@ -1,0 +1,19 @@
+This is a simple symbols table
+The NO.0 Table of level 0
+index	address	name	value
+0	6cc060e0	main
+--------------------------------------
+The NO.0 Table of level 1
+index	address	name	value
+0	6d515900	a
+1	6d515910	b
+2	6d515920	c
+3	6d515930	d
+4	6d515940	e
+--------------------------------------
+The NO.0 Table of level 2
+index	address	name	value
+0	6d515b00	c
+1	6d515b10	d
+2	6d515b20	a
+--------------------------------------

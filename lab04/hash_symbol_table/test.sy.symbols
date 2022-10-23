@@ -1,0 +1,34 @@
+This is a simple symbols table
+The NO.0 Table of level 0
+index	address	name	value
+0	9c4410e0	main
+--------------------------------------
+The NO.0 Table of level 1
+index	address	name	value
+0	9ca5f900	d
+1	9ca5f910	e
+2	9ca5f920	u
+3	9ca5f930	M
+4	9ca5f940	N
+5	9ca5f950	O
+6	9ca5f960	P
+7	9ca5f970	Q
+8	9ca5f980	R
+9	9ca5f990	S
+10	9ca5f9a0	T
+11	9ca5f9b0	U
+12	9ca5f9c0	V
+13	9ca5f9d0	W
+14	9ca5f9e0	X
+15	9ca5f9f0	K
+16	9ca5fa00	L
+17	9ca5fa10	a
+18	9ca5fa20	b
+19	9ca5fa30	c
+--------------------------------------
+The NO.0 Table of level 2
+index	address	name	value
+0	9ca5fce0	d
+17	9ca5fdf0	a
+19	9ca5fe10	c
+--------------------------------------
