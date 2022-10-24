@@ -44,9 +44,16 @@ OR	\|
 NOT	~
 XOR	\^
 ID	[A-Za-z_][0-9A-Za-z_]*
+BLOCKCOMMENTBEGIN \/\*
+BLOCKCOMMENTELEMENT .
+BLOCKCOMMENTEND \*\/
+%x BLOCKCOMMENT
+LINECOMMENT \/\/[^\n]*
 
 %%
 
+{EOL}	;
+{WHITE}	;
 {DECIMAL}	{value.ival = atoi(yytext);fprintf(yyout, "DECIMAL\t\t%s\t\t%d\n", yytext, value.ival);}
 {OCTAL}	{sscanf(yytext, "%o", &value.ival);fprintf(yyout, "OCTAL\t\t%s\t\t%d\n", yytext, value.ival);}
 {HEXADECIMAL}	{sscanf(yytext, "%x", &value.ival);fprintf(yyout, "HEXADECIMAL\t\t%s\t\t%d\n", yytext, value.ival);}
@@ -73,8 +80,10 @@ ID	[A-Za-z_][0-9A-Za-z_]*
 {NOT}	{fprintf(yyout, "NOT\t\t%s\n", yytext);}
 {XOR}	{fprintf(yyout, "XOR\t\t%s\n", yytext);}
 {ID}	{value.symp = symlook(yytext, current_level, current_index);fprintf(yyout, "ID\t\t%s\t\t%X\n", yytext, value.symp);}
-{EOL}	;
-{WHITE}	;
+{LINECOMMENT} {}
+{BLOCKCOMMENTBEGIN} {BEGIN BLOCKCOMMENT;}
+<BLOCKCOMMENT>{BLOCKCOMMENTELEMENT} {}
+<BLOCKCOMMENT>{BLOCKCOMMENTEND} {BEGIN INITIAL;}
 
 %%
 

@@ -1,19 +1,21 @@
 This is a simple symbols table
 The NO.0 Table of level 0
 index	address	name	value
-0	a1aa50e0	main
+0	db0f78e0	main
 --------------------------------------
 The NO.0 Table of level 1
 index	address	name	value
-0	a2d82900	a
-1	a2d82910	b
-2	a2d82920	c
-3	a2d82930	d
-4	a2d82940	e
+0	db0f7b30	M
+1	db0f7950	a
+2	db0f79a0	b
+3	db0f79f0	c
+4	db0f7a40	d
+5	db0f7a90	e
+6	db0f7ae0	u
 --------------------------------------
 The NO.0 Table of level 2
 index	address	name	value
-0	a2d82b00	c
-1	a2d82b10	d
-2	a2d82b20	a
+0	db0f7c40	a
+1	db0f7ba0	c
+2	db0f7bf0	d
 --------------------------------------

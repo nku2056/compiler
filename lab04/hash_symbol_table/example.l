@@ -44,6 +44,11 @@ OR	\|
 NOT	~
 XOR	\^
 ID	[A-Za-z_][0-9A-Za-z_]*
+BLOCKCOMMENTBEGIN \/\*
+BLOCKCOMMENTELEMENT .
+BLOCKCOMMENTEND \*\/
+%x BLOCKCOMMENT
+LINECOMMENT \/\/[^\n]*
 
 %%
 
@@ -75,6 +80,11 @@ ID	[A-Za-z_][0-9A-Za-z_]*
 {ID}	{value.symp = symlook(yytext, current_level, current_index);fprintf(yyout, "ID\t\t%s\t\t%X\n", yytext, value.symp);}
 {EOL}	;
 {WHITE}	;
+{LINECOMMENT} {}
+{BLOCKCOMMENTBEGIN} {BEGIN BLOCKCOMMENT;}
+<BLOCKCOMMENT>{BLOCKCOMMENTELEMENT} {}
+<BLOCKCOMMENT>{BLOCKCOMMENTEND} {BEGIN INITIAL;}
+
 
 %%
 
