@@ -5,13 +5,15 @@
 #include <string.h>
 
 enum valtype {
-    INTTYPE, FLOATTYPE
+    INTTYPE, FLOATTYPE, INTPOINTERTYPE, FLOATPOINTERTYPE
 };
 
 struct val {
     enum valtype t;
     int ival;
 	float fval;
+    int* ipointer;
+    float* fpointer;
 };
 
 struct map {

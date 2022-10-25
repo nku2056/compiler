@@ -20,18 +20,29 @@ FLOATCONST	([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?
 INT int
 FLOAT float
 IF	if
+WHILE while
+RETURN return
+BREAK break
+CONTINUE continue
 LBRACE	\{
 RBRACE	\}
+LBRACKET \[
+RBRACKET \]
 SEMICOLON	;
-COMMA	,
 LPAREN	\(
 RPAREN	\)
 EQ	==
+LOE <=
+GOE >=
+GT >
+LT <
+NEQ !=
 ASSIGN	=
 PLUS	\+
 SUB	-
 MULTI	\*
 DIVIDE	\/
+MOD %
 LAND	&&
 LOR	\|\|
 LNOT	!
@@ -39,8 +50,8 @@ AND	&
 OR	\|
 NOT	~
 XOR	\^
-RETURN	return
 ID	[A-Za-z_][0-9A-Za-z_]*
+COMMA ,
 BLOCKCOMMENTBEGIN \/\*
 BLOCKCOMMENTELEMENT .
 BLOCKCOMMENTEND \*\/
@@ -95,6 +106,30 @@ LINECOMMENT \/\/[^\n]*
 		#endif
 		return IF;
 	}
+{WHILE} {
+	#ifdef IN_LEX
+	fprintf(lexout, "WHILE\t\t%s\n", yytext);
+	#endif
+	return WHILE;
+}
+{RETURN} {
+	#ifdef IN_LEX
+	fprintf(lexout, "RETURN\t\t%s\n", yytext);
+	#endif
+	return RETURN;
+}
+{BREAK} {
+	#ifdef IN_LEX
+	fprintf(lexout, "BREAK\t\t%s\n", yytext);
+	#endif
+	return BREAK;
+}
+{CONTINUE} {
+	#ifdef IN_LEX
+	fprintf(lexout, "CONTINUE\t\t%s\n", yytext);
+	#endif
+	return CONTINUE;
+}
 {LBRACE}	{
 		current_level++;
 		old_index = current_index;
@@ -112,6 +147,18 @@ LINECOMMENT \/\/[^\n]*
 		fprintf(lexout, "RBRACE\t\t%s\n", yytext);
 		#endif
 		return RBRACE;
+	}
+{LBRACKET}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "LBRACKET\t\t%s\n", yytext);
+		#endif
+		return LPAREN;
+	}
+{RBRACKET}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "RBRACKET\t\t%s\n", yytext);
+		#endif
+		return LPAREN;
 	}
 {SEMICOLON}	{
 		#ifdef IN_LEX
@@ -136,6 +183,36 @@ LINECOMMENT \/\/[^\n]*
 		fprintf(lexout, "EQ\t\t%s\n", yytext);
 		#endif
 		return EQ;
+	}
+{LOE}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "LOE\t\t%s\n", yytext);
+		#endif
+		return LOE;
+	}
+{GOE}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "GOE\t\t%s\n", yytext);
+		#endif
+		return GOE;
+	}
+{GT}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "GT\t\t%s\n", yytext);
+		#endif
+		return GT;
+	}
+{LT}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "LT\t\t%s\n", yytext);
+		#endif
+		return LT;
+	}
+{NEQ}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "NEQ\t\t%s\n", yytext);
+		#endif
+		return NEQ;
 	}
 {ASSIGN}	{
 		#ifdef IN_LEX
@@ -166,6 +243,12 @@ LINECOMMENT \/\/[^\n]*
 		fprintf(lexout, "DIVIDE\t\t%s\n", yytext);
 		#endif
 		return DIVIDE;
+	}
+{MOD}	{
+		#ifdef IN_LEX
+		fprintf(lexout, "MOD\t\t%s\n", yytext);
+		#endif
+		return MOD;
 	}
 {LAND}	{
 		#ifdef IN_LEX
@@ -209,18 +292,18 @@ LINECOMMENT \/\/[^\n]*
 		#endif
 		return XOR;
 	}
-{RETURN}	{
-		#ifdef IN_LEX
-		fprintf(lexout, "ID\t\t%s\t\t%X\n", yytext, yylval.symp);
-		#endif
-		return RETURN;
-	}
 {ID}	{
 		yylval.symp = symlook(yytext, current_level, current_index);
 		#ifdef IN_LEX
 		fprintf(lexout, "ID\t\t%s\t\t%X\n", yytext, yylval.symp);
 		#endif
 		return ID;
+	}
+{COMMA} {
+		#ifdef IN_LEX
+		fprintf(lexout, "COMMA\t\t%s\n", yytext);
+		#endif
+		return COMMA;
 	}
 {EOL}	{ linenum++; }
 {WHITE}	;

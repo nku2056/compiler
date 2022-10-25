@@ -23,17 +23,29 @@
 %token INT
 %token FLOAT
 %token IF
+%token WHILE
+%token RETURN
+%token BREAK
+%token CONTINUE
 %token LBRACE
 %token RBRACE
+%token LBRACKET
+%token RBRACKET
 %token SEMICOLON
 %token LPAREN
 %token RPAREN
 %token EQ
+%token LOE
+%token GOE
+%token LT
+%token GT
+%token NEQ
 %token ASSIGN
 %token PLUS
 %token SUB
 %token MULTI
 %token DIVIDE
+%token MOD
 %token LAND
 %token LOR
 %token LNOT
@@ -43,7 +55,6 @@
 %token XOR
 %token <symp> ID
 %token COMMA
-%token RETURN
 %token BLOCKCOMMENTBEGIN
 %token BLOCKCOMMENTELEMENT
 %token BLOCKCOMMENTEND
@@ -61,8 +72,13 @@
 
 compunit	:	statements	{}
     		;
+
 statements	:	statement	{}
     		|	statements statement	{}
+			;
+
+arg_list	:	LBRACKET intconst RBRACKET {$$ = $2}
+			|	LBRACKET intconst RBRACKET arg_list{$$ = $2 * $4}
 			;
 
 statement	:	ID ASSIGN expression SEMICOLON	{ $1->v = $3; }
@@ -70,6 +86,8 @@ statement	:	ID ASSIGN expression SEMICOLON	{ $1->v = $3; }
 			|	FLOAT ID SEMICOLON	{ $2->v->t = FLOATTYPE; }
 			|	INT ID ASSIGN expression SEMICOLON	{ $2->v = $4; $2->v->t = INTTYPE; }
 			|	FLOAT ID ASSIGN expression SEMICOLON	{ $2->v = $4; $2->v->t = FLOATTYPE; }
+			|   INT ID arg_list	SEMICOLON  {$2->v->t = INTPOINTERTYPE;}
+			|	FLOAT ID arg_list SEMICOLON	{$2->v->t = FLOATPOINTERTYPE;}
 			|	expression SEMICOLON	{ printf("%d\t%d\t%f\n", $1->t, $1->ival, $1->fval); }
 			|   funcdef	{}
 			|	RETURN expression SEMICOLON	{}

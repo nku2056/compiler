@@ -6,11 +6,13 @@ int main(){
 	int c=01234;
 	int d=.1234e6;
 	int e=00002222;
+	int array[5][6][7];
 	{	
 		int c=0;
 		int d=0;
 		int a=0;
 	}
+	return 0;
 	/*
 	1111111111111111
 	*/

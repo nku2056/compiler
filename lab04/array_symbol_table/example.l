@@ -25,17 +25,29 @@ FLOATCONST	([0-9]*\.[0-9]+)([eE][-+]?[0-9]+)?
 INT int
 FLOAT float
 IF	if
+WHILE while
+RETURN return
+BREAK break
+CONTINUE continue
 LBRACE	\{
 RBRACE	\}
+LBRACKET \[
+RBRACKET \]
 SEMICOLON	;
 LPAREN	\(
 RPAREN	\)
 EQ	==
+LOE <=
+GOE >=
+GT >
+LT <
+NEQ !=
 ASSIGN	=
 PLUS	\+
 SUB	-
 MULTI	\*
 DIVIDE	\/
+MOD %
 LAND	&&
 LOR	\|\|
 LNOT	!
@@ -61,17 +73,29 @@ LINECOMMENT \/\/[^\n]*
 {INT}	{fprintf(yyout, "INT\t\t%s\n", yytext);}
 {FLOAT}	{fprintf(yyout, "FLOAT\t\t%s\n", yytext);}
 {IF}	{fprintf(yyout, "IF\t\t%s\n", yytext);}
+{WHILE} {fprintf(yyout, "WHILE\t\t%s\n", yytext);}
+{RETURN} {fprintf(yyout, "RETURN\t\t%s\n", yytext);}
+{BREAK} {fprintf(yyout, "BREAK\t\t%s\n", yytext);}
+{CONTINUE} {fprintf(yyout, "CONTINUE\t\t%s\n", yytext);}
 {LBRACE}	{current_level++;old_index = current_index;current_index = 0;fprintf(yyout, "LBRACE\t\t%s\n", yytext);}
 {RBRACE}	{current_level--;current_index++;current_index = old_index;fprintf(yyout, "RBRACE\t\t%s\n", yytext);}
 {SEMICOLON}	{fprintf(yyout, "SEMICOLON\t\t%s\n", yytext);}
 {LPAREN}	{fprintf(yyout, "LBRACE\t\t%s\n", yytext);}
 {RPAREN}	{fprintf(yyout, "RBRACE\t\t%s\n", yytext);}
+{LBRACKET}	{fprintf(yyout, "LBRACKET\t\t%s\n", yytext);}
+{RBRACKET}	{fprintf(yyout, "RBRACKET\t\t%s\n", yytext);}
 {EQ}	{fprintf(yyout, "EQ\t\t%s\n", yytext);}
+{LOE}	{fprintf(yyout, "LOE\t\t%s\n", yytext);}
+{GOE}	{fprintf(yyout, "GOE\t\t%s\n", yytext);}
+{LT}	{fprintf(yyout, "LT\t\t%s\n", yytext);}
+{GT}	{fprintf(yyout, "GT\t\t%s\n", yytext);}
+{NEQ}	{fprintf(yyout, "NEQ\t\t%s\n", yytext);}
 {ASSIGN}	{fprintf(yyout, "ASSIGN\t\t%s\n", yytext);}
 {PLUS}	{fprintf(yyout, "PLUS\t\t%s\n", yytext);}
 {SUB}	{fprintf(yyout, "SUB\t\t%s\n", yytext);}
 {MULTI}	{fprintf(yyout, "MULTI\t\t%s\n", yytext);}
 {DIVIDE}	{fprintf(yyout, "DIVIDE\t\t%s\n", yytext);}
+{MOD}   {fprintf(yyout, "MOD\t\t%s\n", yytext);}
 {LAND}	{fprintf(yyout, "LAND\t\t%s\n", yytext);}
 {LOR}	{fprintf(yyout, "LOR\t\t%s\n", yytext);}
 {LNOT}	{fprintf(yyout, "LNOT\t\t%s\n", yytext);}
